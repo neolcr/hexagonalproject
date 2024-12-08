@@ -1,0 +1,25 @@
+com.example.project           // Root package for the application
+│
+├── application               // Application layer: orchestrates the use cases and business workflows
+│   ├── service               // Contains services that implement use cases (business workflows)
+│   ├── dto                   // Data Transfer Objects: used to transfer data between layers
+│   ├── port                  // Defines interfaces (ports) for inbound and outbound communication
+│       ├── inbound           // Interfaces for incoming requests (e.g., use cases called by handlers)
+│       └── outbound          // Interfaces for external dependencies (e.g., repositories, APIs)
+│
+├── domain                    // Core domain logic: represents the business rules and entities
+│   └── model                 // Domain models: entities, value objects, and core business logic
+│
+├── infrastructure            // Infrastructure layer: technical details like databases, APIs, and configurations
+│   ├── adapter               // Adapters for external systems
+│   │   ├── persistence       // Database-specific implementations (e.g., JPA repositories)
+│   │   └── api               // API-specific implementations (e.g., REST API clients)
+│   ├── configuration         // Centralized configuration for beans, properties, and integrations
+│   └── exception             // Custom exception classes and global exception handling logic
+│
+├── presentation              // Presentation layer: handles communication with external clients
+│   ├── handler               // Entry points for incoming requests (e.g., HTTP endpoints or event handlers)
+│   ├── mapper                // Maps domain models to DTOs and vice versa
+│   └── validator             // Validates incoming data before passing it to the application layer
+│
+└── MainApplication.java      // The entry point for the Spring Boot application
