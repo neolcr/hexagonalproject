@@ -1,4 +1,4 @@
 package com.example.hexagonalproject.application.mapper;
 
-public interface JavaExampleResponse {
+public class JavaExampleResponseImplMapper {
 }

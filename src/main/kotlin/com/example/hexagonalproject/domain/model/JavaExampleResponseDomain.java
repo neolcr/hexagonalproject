@@ -1,10 +1,10 @@
-package com.example.hexagonalproject.application.dto;
+package com.example.hexagonalproject.domain.model;
 
-public class JavaExampleRequestDTO {
+public class JavaExampleResponseDomain {
     private long id;
     private String desc;
 
-    public JavaExampleRequestDTO(long id, String desc) {
+    public JavaExampleResponseDomain(long id, String desc) {
         this.id = id;
         this.desc = desc;
     }

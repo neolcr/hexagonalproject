@@ -1,3 +1,3 @@
 package com.example.hexagonalproject.application.dto
 
-class KotlinExampleDTO(var id: Long, var desc: String)
+class KotlinExampleRequestDTO(var id: Long, var desc: String)

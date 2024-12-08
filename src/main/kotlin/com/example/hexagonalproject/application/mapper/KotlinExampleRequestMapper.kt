@@ -1,4 +1,4 @@
 package com.example.hexagonalproject.application.mapper;
 
-public interface JavaExampleRequest {
+public interface KotlinExampleRequestMapper {
 }
