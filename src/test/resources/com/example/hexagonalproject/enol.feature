@@ -29,3 +29,11 @@ Feature:
     * method get
     * status 200
     * match response contains { id: '#(id2)', desc: '#(desc2)'}
+
+    # a post
+    * url `${urlBase}/kotlin/example/add`
+    * request { id: 13, desc: 'no importa' }
+    * method post
+    * status 200
+    * match response == { id: 13, desc: 'Esto es la descripcion' }
+    * def id = response.id
