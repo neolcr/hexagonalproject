@@ -8,10 +8,6 @@ import org.springframework.stereotype.Service
 class KotlinExampleUseCase(val repository: KotlinExampleRepository) {
 
     fun get(id: Long): KotlinExampleResponseDomain {
-        val result = KotlinExampleResponseDomain(id = id, desc = "Esto es la descripcion")
-        val referenceById = repository.getReferenceById(id)
-        result.id = referenceById.id
-        result.desc = referenceById.desc
-        return result
+        return repository.getReferenceById(id)
     }
 }

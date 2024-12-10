@@ -3,37 +3,58 @@ Feature:
   Background:
     * def urlBase = karate.properties['url.base'] || karate.get('urlBase', 'http://localhost:8080')
 
-  Scenario: check endpoints
-    # check the get endpoint
-    * url `${urlBase}/kotlin/example/6`
+
+  Scenario:
+    * table data
+      | id | desc  |
+      | 6  | 'This is a sample entry 6' |
+      | 8  | 'Final fake data row' |
+    * call read('@called') data
+
+
+  @ignore @called
+  Scenario: check get example with id
+    # check the get endpoint with id 6
+    * url `${urlBase}/kotlin/example/${id}`
     * method get
     * status 200
-    * match response == { id: 6, desc: 'Esto es la descripcion'}
-    * def id1 = response.id
-    * def desc1 = response.desc
+    * assert responseHeaders['Content-Type'] == 'application/json'
+    * match responseHeaders['Content-Type'] == ['application/json']
+    * match responseHeaders['Content-Type'] contains 'application/json'
+    * print responseHeaders
+    # forma 1
+    * match response ==
+      """
+      {
+        "id" : '#(id)',
+        "desc": "#(desc)"
+      }
+      """
+    # forma 2
+    * match response == { id: "#(id)", desc: "#(desc)"}
+    # forma 3
+    * response.id = id
+    * response.desc = desc
+    * assert responseTime < 100
+    * print responseTime
+    * match response.id == '#number'
+    * match response.desc == '#string'
 
-    # commt
-    * method get
-    * status 200
-    * match response contains { id: '#(id1)', desc: '#(desc1)'}
 
-    # check the get endpoint
-    * url `${urlBase}/kotlin/example/8`
-    * method get
-    * status 200
-    * match response == { id: 8, desc: 'Esto es la descripcion'}
-    * def id2 = response.id
-    * def desc2 = response.desc
 
-    # commt
-    * method get
-    * status 200
-    * match response contains { id: '#(id2)', desc: '#(desc2)'}
 
-    # a post
-    * url `${urlBase}/kotlin/example/add`
-    * request { id: 13, desc: 'no importa' }
-    * method post
-    * status 200
-    * match response == { id: 13, desc: 'Esto es la descripcion' }
-    * def id = response.id
+#    * def id2 = response.id
+#    * def desc2 = response.desc
+
+#    # commt
+#    * method get
+#    * status 200
+#    * match response contains { id: '#(id2)', desc: '#(desc2)'}
+#
+#    # a post
+#    * url `${urlBase}/kotlin/example/add`
+#    * request { id: 13, desc: 'no importa' }
+#    * method post
+#    * status 200
+#    * match response == { id: 13, desc: 'Esto es la descripcion' }
+#    * def id = response.id
