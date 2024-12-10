@@ -4,6 +4,26 @@ Feature:
     * def urlBase = karate.properties['url.base'] || karate.get('urlBase', 'http://localhost:8080')
 
 
+
+  Scenario Outline:
+    # check the get endpoint with id ${id} iterating itself with outline
+    * url `${urlBase}/kotlin/example/${id}`
+    * method get
+    * status 200
+    * response.id = id * 1
+    * response.desc = desc
+    * assert responseTime < 100
+    * print responseTime
+    * match response.id == '#number'
+    * match response.desc == '#string'
+    Examples:
+      | id | desc  |
+      | 5  | This is a sample entry 5 |
+      | 7  | This is a sample entry 7 |
+
+
+
+
   Scenario:
     * table data
       | id | desc  |
@@ -41,20 +61,11 @@ Feature:
     * match response.desc == '#string'
 
 
+    Scenario Outline:
+    # a post
+    * url `${urlBase}/kotlin/example/add`
+    * request { id: 13, desc: 'no importa' }
+    * method post
+    * status 200
+    * match response == { id: 13, desc: 'Esto es la descripcion' }
 
-
-#    * def id2 = response.id
-#    * def desc2 = response.desc
-
-#    # commt
-#    * method get
-#    * status 200
-#    * match response contains { id: '#(id2)', desc: '#(desc2)'}
-#
-#    # a post
-#    * url `${urlBase}/kotlin/example/add`
-#    * request { id: 13, desc: 'no importa' }
-#    * method post
-#    * status 200
-#    * match response == { id: 13, desc: 'Esto es la descripcion' }
-#    * def id = response.id
