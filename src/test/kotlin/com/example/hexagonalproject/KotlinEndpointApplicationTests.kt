@@ -15,7 +15,7 @@ class KotlinEndpointApplicationTests {
 //        HttpServer server = HttpServer.config(config).build();
 		val baseUrl = "http://localhost:8080"
 		val results =
-			Runner.path("classpath:com/example/hexagonalproject/enol.feature") //                .systemProperty("url.base", "http://localhost:" + server.getPort())
+			Runner.path("classpath:com/example/hexagonalproject/example.feature") //                .systemProperty("url.base", "http://localhost:" + server.getPort())
 				.systemProperty("url.base", baseUrl)
 				.parallel(1)
 		Assertions.assertEquals(0, results.failCount, results.errorMessages)

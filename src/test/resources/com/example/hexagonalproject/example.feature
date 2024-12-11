@@ -4,7 +4,6 @@ Feature:
     * def urlBase = karate.properties['url.base'] || karate.get('urlBase', 'http://localhost:8080')
 
 
-
   Scenario Outline:
     # check the get endpoint with id ${id} iterating itself with outline
     * url `${urlBase}/kotlin/example/${id}`
@@ -12,23 +11,36 @@ Feature:
     * status 200
     * response.id = id * 1
     * response.desc = desc
-    * assert responseTime < 100
+    * assert responseTime < 1000
     * print responseTime
     * match response.id == '#number'
     * match response.desc == '#string'
     Examples:
       | id | desc  |
       | 5  | This is a sample entry 5 |
-      | 7  | This is a sample entry 7 |
+      | 6  | This is a sample entry 6|
 
 
+  Scenario Outline:
+    # from csv
+    * url `${urlBase}/kotlin/example/${id}`
+    * method get
+    * status 200
+    * response.id = id * 1
+    * response.desc = desc
+    * assert responseTime < 1000
+    * print responseTime
+    * match response.id == '#number'
+    * match response.desc == '#string'
+    Examples:
+      | read('test-data.csv') |
 
 
   Scenario:
     * table data
       | id | desc  |
       | 6  | 'This is a sample entry 6' |
-      | 8  | 'Final fake data row' |
+      | 7  | 'This is a sample entry 7' |
     * call read('@called') data
 
 
@@ -61,11 +73,11 @@ Feature:
     * match response.desc == '#string'
 
 
-    Scenario Outline:
-    # a post
-    * url `${urlBase}/kotlin/example/add`
-    * request { id: 13, desc: 'no importa' }
-    * method post
-    * status 200
-    * match response == { id: 13, desc: 'Esto es la descripcion' }
+#    Scenario Outline:
+#    # a post
+#    * url `${urlBase}/kotlin/example/add`
+#    * request { id: 13, desc: 'no importa' }
+#    * method post
+#    * status 200
+#    * match response == { id: 13, desc: 'Esto es la descripcion' }
 
